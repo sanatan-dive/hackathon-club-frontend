@@ -63,7 +63,7 @@ const Cards = () => {
   useEffect(() => {
     const fetchHackathons = async () => {
       try {
-        const response = await axios.post("http://localhost:5000/api/hackathons/fetch-hackathons");
+        const response = await axios.post("https://hackathon-club-backend-production.up.railway.app/api/hackathons/fetch-hackathons");
         
         // Map fetched hackathons to include random images from the images array
         const hackathonsWithImages = response.data.hackathons.map((hackathon) => ({

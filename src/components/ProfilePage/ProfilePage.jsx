@@ -23,7 +23,7 @@ function ProfilePage() {
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/users"); // Backend endpoint
+        const response = await fetch("https://hackathon-club-backend-production.up.railway.app/api/users"); // Backend endpoint
         if (!response.ok) {
           throw new Error("Failed to fetch profiles");
         }

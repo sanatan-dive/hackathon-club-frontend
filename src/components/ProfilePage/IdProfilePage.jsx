@@ -10,7 +10,7 @@ const IdProfilePage = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/users/${id}`);
+        const response = await axios.get(`https://hackathon-club-backend-production.up.railway.app/api/users/${id}`);
         setUserData(response.data);
       } catch (error) {
         console.error("Error fetching user profile:", error);
