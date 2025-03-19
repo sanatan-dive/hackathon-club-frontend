@@ -126,7 +126,7 @@ const FloatingNav = ({ navItems = [], className }) => {
         className="md:hidden fixed top-16 left-4 right-4 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg overflow-hidden z-[5000]"
       >
         <div className="flex flex-col p-4">
-          {navItems.slice(1).map((navItem, idx) => (
+          {navItems.slice(0).map((navItem, idx) => (
             <Link
               key={`mobile-link-${idx}`}
               to={navItem.link}
