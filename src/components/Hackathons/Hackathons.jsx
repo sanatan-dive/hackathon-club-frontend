@@ -4,38 +4,32 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useUser, SignedIn, SignedOut } from "@clerk/clerk-react";
 
 function Hackathons() {
   const [selectedHackathon, setSelectedHackathon] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
-  const [searchTerm, setSearchTerm] = useState(""); // Track search term
-  const [hackathons, setHackathons] = useState([]); // State to store fetched hackathons
-  const [loading, setLoading] = useState(true); // Track loading state
-  const [error, setError] = useState(null); // Track errors
+  const [searchTerm, setSearchTerm] = useState("");
+  const [hackathons, setHackathons] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { isSignedIn } = useUser(); // Get authentication status from Clerk
 
-  // Fetch hackathons from the backend API
   useEffect(() => {
     const fetchHackathons = async () => {
       try {
         const response = await axios.post("https://hackathon-club-backend-production.up.railway.app/api/hackathons/fetch-hackathons");
-        setHackathons(response.data.hackathons); // Set fetched hackathons
+        setHackathons(response.data.hackathons);
         console.log(response.data.hackathons);
-        setLoading(false); // Set loading to false
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching hackathons:", error);
         setError("Failed to fetch hackathons. Please try again later.");
-        setLoading(false); // Set loading to false
+        setLoading(false);
       }
     };
 
     fetchHackathons();
-  }, []);
-
-  // Check login state from localStorage when the component mounts
-  useEffect(() => {
-    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
-    setIsLoggedIn(loggedIn);
   }, []);
 
   const handleCardClick = (hackathon) => {
@@ -46,14 +40,10 @@ function Hackathons() {
     setSelectedHackathon(null);
   };
 
-  const handleLogin = () => {
-    // Redirect to login page and save login state for demonstration
+  const handleLoginRedirect = () => {
     navigate("/sign-in", { state: { returnTo: "/hackathons" } });
-    localStorage.setItem("isLoggedIn", true); // Simulate login for demo purposes
-    setIsLoggedIn(true);
   };
 
-  // Filter hackathons based on search term
   const filteredHackathons = hackathons.filter((hackathon) => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     return (
@@ -193,8 +183,8 @@ function Hackathons() {
               <p className="text-sm text-stone-400 mb-4">
                 Participants: {selectedHackathon.participants}
               </p>
-              <div className="flex justify-center">
-                {isLoggedIn ? (
+              <div className="flex justify-center gap-4">
+                <SignedIn>
                   <a
                     href={selectedHackathon.link}
                     target="_blank"
@@ -204,17 +194,18 @@ function Hackathons() {
                       Register
                     </button>
                   </a>
-                ) : (
+                </SignedIn>
+                <SignedOut>
                   <button
-                    onClick={handleLogin}
+                    onClick={handleLoginRedirect}
                     className="bg-gradient-to-r from-yellow-700 to-yellow-500 text-white rounded-full py-2 px-4 transition-transform transform hover:scale-105"
                   >
                     Login to Register
                   </button>
-                )}
+                </SignedOut>
                 <button
                   onClick={handleCloseDetails}
-                  className="ml-4 bg-stone-700 text-white rounded-full py-2 px-4 transition-transform transform hover:scale-105"
+                  className="bg-stone-700 text-white rounded-full py-2 px-4 transition-transform transform hover:scale-105"
                 >
                   Close
                 </button>
