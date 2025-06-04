@@ -23,7 +23,7 @@ function ProfilePage() {
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const response = await fetch("https://hackathon-club-backend-production.up.railway.app/api/users");
+        const response = await fetch("https://hackathon-club-backend.onrender.com/api/users");
         if (!response.ok) {
           throw new Error("Failed to fetch profiles");
         }

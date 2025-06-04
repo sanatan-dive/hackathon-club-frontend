@@ -24,7 +24,7 @@ const EditProfile = () => {
     const fetchProfileData = async () => {
       try {
         const token = await getToken();
-        const response = await fetch(`https://hackathon-club-backend-production.up.railway.app/api/users/${state?.userProfile?.id || 'default_user_id'}`, {
+        const response = await fetch(`https://hackathon-club-backend.onrender.com/api/users/${state?.userProfile?.id || 'default_user_id'}`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,
@@ -87,7 +87,7 @@ const EditProfile = () => {
   
     try {
       const token = await getToken();
-      const response = await fetch(`https://hackathon-club-backend-production.up.railway.app/api/users/_id}`, {
+      const response = await fetch(`https://hackathon-club-backend.onrender.com/api/users/_id}`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,

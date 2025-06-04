@@ -66,7 +66,7 @@ const Cards = () => {
     const fetchHackathons = async () => {
       try {
         const response = await axios.post(
-          "https://hackathon-club-backend-production.up.railway.app/api/hackathons/fetch-hackathons"
+          "https://hackathon-club-backend.onrender.com/api/hackathons/fetch-hackathons"
         );
         const hackathonsWithImages = response.data.hackathons.map((hackathon) => ({
           ...hackathon,

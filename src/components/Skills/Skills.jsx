@@ -72,7 +72,7 @@ const UserProfileForm = () => {
       // Get Clerk token
       const token = await getToken();
 
-      const response = await fetch('https://hackathon-club-backend-production.up.railway.app/api/users', {
+      const response = await fetch('https://hackathon-club-backend.onrender.com/api/users', {
         method: 'POST',
         body: formDataToSend,
         headers: {
@@ -111,7 +111,7 @@ const UserProfileForm = () => {
     if (userId) {
       try {
         // Fetch profile data from the backend
-        const response = await fetch(`https://hackathon-club-backend-production.up.railway.app/api/users/${userId}`);
+        const response = await fetch(`https://hackathon-club-backend.onrender.com/api/users/${userId}`);
         if (!response.ok) {
           // Handle errors if the response is not okay (e.g., user not found)
           throw new Error("Profile not found.");
